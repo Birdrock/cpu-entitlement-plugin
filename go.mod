@@ -11,14 +11,14 @@ require (
 	github.com/fatih/color v1.15.0
 	github.com/google/uuid v1.3.1
 	github.com/jessevdk/go-flags v1.5.0
-	github.com/onsi/ginkgo/v2 v2.11.0
+	github.com/onsi/ginkgo/v2 v2.12.0
 	github.com/onsi/gomega v1.27.10
 )
 
 require (
 	code.cloudfoundry.org/bytefmt v0.0.0-20230612151507-41ef4d1f67a4 // indirect
 	code.cloudfoundry.org/cli-plugin-repo v0.0.0-20210527163012-bfc589866b5c // indirect
-	code.cloudfoundry.org/go-diodes v0.0.0-20230822175528-1a49047bcd23 // indirect
+	code.cloudfoundry.org/go-diodes v0.0.0-20230828175936-198af487b8a2 // indirect
 	code.cloudfoundry.org/go-loggregator v7.4.0+incompatible // indirect
 	code.cloudfoundry.org/gofileutils v0.0.0-20170111115228-4d0c80011a0f // indirect
 	code.cloudfoundry.org/jsonry v1.1.3 // indirect
@@ -31,7 +31,7 @@ require (
 	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
 	github.com/charlievieth/fs v0.0.3 // indirect
 	github.com/cloudfoundry/bosh-cli v6.4.1+incompatible // indirect
-	github.com/cloudfoundry/bosh-utils v0.0.386 // indirect
+	github.com/cloudfoundry/bosh-utils v0.0.388 // indirect
 	github.com/cppforlife/go-patch v0.2.0 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.2 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -41,7 +41,7 @@ require (
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/pprof v0.0.0-20230821062121-407c9e7a662f // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.1 // indirect
 	github.com/kr/pty v1.1.1 // indirect
 	github.com/lunixbochs/vtclean v1.0.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect

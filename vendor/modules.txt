@@ -34,7 +34,7 @@ code.cloudfoundry.org/cli/util/v6manifestparser
 code.cloudfoundry.org/cli/version
 # code.cloudfoundry.org/cli-plugin-repo v0.0.0-20210527163012-bfc589866b5c
 ## explicit; go 1.12
-# code.cloudfoundry.org/go-diodes v0.0.0-20230822175528-1a49047bcd23 => code.cloudfoundry.org/go-diodes v0.0.0-20221128154616-f0ef2e038721
+# code.cloudfoundry.org/go-diodes v0.0.0-20230828175936-198af487b8a2 => code.cloudfoundry.org/go-diodes v0.0.0-20221128154616-f0ef2e038721
 ## explicit; go 1.18
 code.cloudfoundry.org/go-diodes
 # code.cloudfoundry.org/go-log-cache v1.0.1-0.20230106184352-6dc0e9ab2e65
@@ -88,7 +88,7 @@ github.com/charlievieth/fs
 # github.com/cloudfoundry/bosh-cli v6.4.1+incompatible
 ## explicit
 github.com/cloudfoundry/bosh-cli/director/template
-# github.com/cloudfoundry/bosh-utils v0.0.386
+# github.com/cloudfoundry/bosh-utils v0.0.388
 ## explicit; go 1.20
 github.com/cloudfoundry/bosh-utils/errors
 github.com/cloudfoundry/bosh-utils/logger
@@ -134,7 +134,7 @@ github.com/google/pprof/profile
 # github.com/google/uuid v1.3.1
 ## explicit
 github.com/google/uuid
-# github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.0
+# github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.1
 ## explicit; go 1.17
 github.com/grpc-ecosystem/grpc-gateway/v2/internal/httprule
 github.com/grpc-ecosystem/grpc-gateway/v2/runtime
@@ -192,7 +192,7 @@ github.com/onsi/ginkgo/reporters/stenographer
 github.com/onsi/ginkgo/reporters/stenographer/support/go-colorable
 github.com/onsi/ginkgo/reporters/stenographer/support/go-isatty
 github.com/onsi/ginkgo/types
-# github.com/onsi/ginkgo/v2 v2.11.0
+# github.com/onsi/ginkgo/v2 v2.12.0
 ## explicit; go 1.18
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
