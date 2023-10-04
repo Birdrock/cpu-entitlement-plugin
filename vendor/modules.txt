@@ -34,7 +34,7 @@ code.cloudfoundry.org/cli/util/v6manifestparser
 code.cloudfoundry.org/cli/version
 # code.cloudfoundry.org/cli-plugin-repo v0.0.0-20210527163012-bfc589866b5c
 ## explicit; go 1.12
-# code.cloudfoundry.org/go-diodes v0.0.0-20230925214244-7bdb41469dfb => code.cloudfoundry.org/go-diodes v0.0.0-20221128154616-f0ef2e038721
+# code.cloudfoundry.org/go-diodes v0.0.0-20231002233754-2971bfc4fd5a => code.cloudfoundry.org/go-diodes v0.0.0-20221128154616-f0ef2e038721
 ## explicit; go 1.18
 code.cloudfoundry.org/go-diodes
 # code.cloudfoundry.org/go-log-cache v1.0.1-0.20230106184352-6dc0e9ab2e65
@@ -63,7 +63,7 @@ code.cloudfoundry.org/lager/v3/lagertest
 # code.cloudfoundry.org/test-log-emitter v0.0.0-20230301191511-86176b7ee269
 ## explicit; go 1.19
 code.cloudfoundry.org/test-log-emitter/emitters
-# code.cloudfoundry.org/tlsconfig v0.0.0-20230612153104-23c0622de227
+# code.cloudfoundry.org/tlsconfig v0.0.0-20230929201433-6cd2b78aba25
 ## explicit; go 1.19
 code.cloudfoundry.org/tlsconfig
 # code.cloudfoundry.org/ykk v0.0.0-20170424192843-e4df4ce2fd4d
@@ -88,7 +88,7 @@ github.com/charlievieth/fs
 # github.com/cloudfoundry/bosh-cli v6.4.1+incompatible
 ## explicit
 github.com/cloudfoundry/bosh-cli/director/template
-# github.com/cloudfoundry/bosh-utils v0.0.398
+# github.com/cloudfoundry/bosh-utils v0.0.399
 ## explicit; go 1.21
 github.com/cloudfoundry/bosh-utils/errors
 github.com/cloudfoundry/bosh-utils/logger
@@ -214,7 +214,7 @@ github.com/onsi/ginkgo/v2/internal/parallel_support
 github.com/onsi/ginkgo/v2/internal/testingtproxy
 github.com/onsi/ginkgo/v2/reporters
 github.com/onsi/ginkgo/v2/types
-# github.com/onsi/gomega v1.27.10
+# github.com/onsi/gomega v1.28.0
 ## explicit; go 1.18
 github.com/onsi/gomega
 github.com/onsi/gomega/format
@@ -296,15 +296,15 @@ golang.org/x/text/unicode/norm
 ## explicit; go 1.18
 golang.org/x/tools/go/ast/inspector
 golang.org/x/tools/internal/typeparams
-# google.golang.org/genproto v0.0.0-20230920204549-e6e6cdab5c13
+# google.golang.org/genproto v0.0.0-20231002182017-d307bd883b97
 ## explicit; go 1.19
 google.golang.org/genproto/internal
-# google.golang.org/genproto/googleapis/api v0.0.0-20230920204549-e6e6cdab5c13
+# google.golang.org/genproto/googleapis/api v0.0.0-20231002182017-d307bd883b97
 ## explicit; go 1.19
 google.golang.org/genproto/googleapis/api
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
-# google.golang.org/genproto/googleapis/rpc v0.0.0-20230920204549-e6e6cdab5c13
+# google.golang.org/genproto/googleapis/rpc v0.0.0-20231002182017-d307bd883b97
 ## explicit; go 1.19
 google.golang.org/genproto/googleapis/rpc/status
 # google.golang.org/grpc v1.58.2
