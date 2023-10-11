@@ -21,24 +21,15 @@ import (
 
 var _ = Describe("cpu-plugins", func() {
 	var (
-		cfApi      string
-		cfUsername string
-		org        string
-		space      string
-		uid        string
+		org   string
+		space string
+		uid   string
 	)
-
-	getCFDetails := func() {
-		cfApi = GetEnv("CF_API")
-		cfUsername = GetEnv("CF_USERNAME")
-	}
 
 	cfLogin := func() {
 		Expect(Cmd("cf", "api", "--unset").Run()).To(gexec.Exit(0))
-		getCFDetails()
-		Expect(Cmd("cf", "api", cfApi, "--skip-ssl-validation").Run()).To(gexec.Exit(0))
-		cfPassword := GetEnv("CF_PASSWORD")
-		Expect(Cmd("cf", "auth", cfUsername, cfPassword).Run()).To(gexec.Exit(0))
+		Expect(Cmd("cf", "api", config.Api, "--skip-ssl-validation").Run()).To(gexec.Exit(0))
+		Expect(Cmd("cf", "auth", config.AdminUsername, config.AdminPassword).Run()).To(gexec.Exit(0))
 	}
 
 	createAndTargetOrgAndSpace := func() {
@@ -53,7 +44,7 @@ var _ = Describe("cpu-plugins", func() {
 	}
 
 	getAppUrl := func(appName string) string {
-		return strings.Replace(cfApi, "api.", appName+".", 1)
+		return strings.Replace(config.Api, "api.", appName+".", 1)
 	}
 
 	Describe("using --skip-ssl-validation", func() {

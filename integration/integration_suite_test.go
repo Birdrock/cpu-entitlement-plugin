@@ -1,6 +1,7 @@
 package integration_test
 
 import (
+	"encoding/json"
 	"net/http"
 	"os"
 	"strings"
@@ -30,12 +31,27 @@ var (
 	logCacheClient       *logcache.Client
 	getToken             func() (string, error)
 	logger               lager.Logger
+	config               Config
 )
 
-var _ = BeforeSuite(func() {
-	cfApi = GetEnv("CF_API")
-	cfUsername := GetEnv("CF_USERNAME")
-	cfPassword := GetEnv("CF_PASSWORD")
+type Config struct {
+	AdminPassword string `json:"admin_password"`
+	AdminUsername string `json:"admin_username"`
+	Api           string `json:"api"`
+}
+
+var _ = SynchronizedBeforeSuite(func() []byte {
+	configPath := GetEnv("CONFIG")
+	configFile, err := os.Open(configPath)
+	Expect(err).NotTo(HaveOccurred())
+
+	decoder := json.NewDecoder(configFile)
+	err = decoder.Decode(&config)
+	Expect(err).NotTo(HaveOccurred())
+
+	cfApi = config.Api
+	cfUsername := config.AdminUsername
+	cfPassword := config.AdminPassword
 
 	Expect(Cmd("cf", "api", cfApi, "--skip-ssl-validation").Run()).To(gexec.Exit(0))
 	Expect(Cmd("cf", "login", "-u", cfUsername, "-p", cfPassword).Run()).To(gexec.Exit(0))
@@ -52,7 +68,9 @@ var _ = BeforeSuite(func() {
 		logcache.WithHTTPClient(httpclient.NewAuthClient(getToken)),
 	)
 	logger = lagertest.NewTestLogger("cumulative-usage-fetcher-test")
-})
+
+	return []byte{}
+}, func(_ []byte) {})
 
 func createInsecureHttpClient() *http.Client {
 	transport := http.DefaultTransport.(*http.Transport).Clone()
