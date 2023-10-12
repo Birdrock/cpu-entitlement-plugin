@@ -2,6 +2,7 @@ package e2e_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 	"time"
@@ -23,12 +24,10 @@ type Config struct {
 	AdminPassword string `json:"admin_password"`
 	AdminUsername string `json:"admin_username"`
 	Api           string `json:"api"`
+	CaCert        string `json:"ca_cert"`
 }
 
 var _ = SynchronizedBeforeSuite(func() []byte {
-	_ = GetEnv("CPU_ENTITLEMENT_PLUGIN_BINARY")
-	_ = GetEnv("CPU_OVERENTITLEMENT_INSTANCES_PLUGIN_BINARY")
-
 	configPath := GetEnv("CONFIG")
 	configFile, err := os.Open(configPath)
 	Expect(err).NotTo(HaveOccurred())
@@ -41,6 +40,6 @@ var _ = SynchronizedBeforeSuite(func() []byte {
 
 func GetEnv(varName string) string {
 	value := os.Getenv(varName)
-	ExpectWithOffset(1, value).NotTo(BeEmpty())
+	ExpectWithOffset(1, value).NotTo(BeEmpty(), fmt.Sprintf("Env %s was empty", varName))
 	return value
 }

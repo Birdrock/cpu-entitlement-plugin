@@ -2,7 +2,6 @@ package e2e_test
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"regexp"
@@ -284,11 +283,10 @@ var _ = Describe("cpu-plugins", func() {
 		}
 
 		writeCertFile := func() string {
-			cert := GetEnv("ROUTER_CA_CERT")
 			tmpFile, err := os.CreateTemp("", "cert")
 			Expect(err).NotTo(HaveOccurred())
 			certFileName := tmpFile.Name()
-			Expect(ioutil.WriteFile(certFileName, []byte(cert), 0400)).To(Succeed())
+			Expect(os.WriteFile(certFileName, []byte(config.CaCert), 0400)).To(Succeed())
 			return certFileName
 		}
 
