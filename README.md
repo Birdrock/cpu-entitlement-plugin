@@ -101,7 +101,7 @@ Running tests for this repo
 
 - `./scripts/create-docker-container.bash`: This will create a docker container with appropriate mounts.
 - `./scripts/test-in-docker-locally.bash`: Create docker container and run all tests and setup in a single script.
-  - `./scripts/test-in-docker-locally.bash <package> <sub-package>`: For running tests under a specific package and/or sub-package: e.g. `./scripts/test-in-docker-locally.bash gorouter router`
+  - `./scripts/test-in-docker-locally.bash <package> <sub-package>`: For running tests under a specific package: e.g. `./scripts/test-in-docker-locally.bash reporter`
 
 When inside docker container: 
 - `/repo/scripts/docker/build-binaries.bash`: This will build binaries required for running tests e.g. cpu-entitlement-plugin
