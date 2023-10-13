@@ -3,6 +3,8 @@ package plugins
 import (
 	"io/ioutil"
 	"os"
+	"strconv"
+	"strings"
 
 	"code.cloudfoundry.org/cli/cf/terminal"
 	"code.cloudfoundry.org/cli/cf/trace"
@@ -15,10 +17,15 @@ import (
 	flags "github.com/jessevdk/go-flags"
 )
 
-type CPUEntitlementAdminPlugin struct{}
+type CPUEntitlementAdminPlugin struct{ Version string }
 
 func NewOverEntitlementInstancesPlugin() CPUEntitlementAdminPlugin {
 	return CPUEntitlementAdminPlugin{}
+}
+
+func (p CPUEntitlementAdminPlugin) WithVersion(version string) CPUEntitlementAdminPlugin {
+	p.Version = version
+	return p
 }
 
 func (p CPUEntitlementAdminPlugin) Run(cli plugin.CliConnection, args []string) {
@@ -77,12 +84,23 @@ func (p CPUEntitlementAdminPlugin) Run(cli plugin.CliConnection, args []string) 
 }
 
 func (p CPUEntitlementAdminPlugin) GetMetadata() plugin.PluginMetadata {
+	major := 0
+	minor := 0
+	build := 0
+	if p.Version != "" {
+		version := strings.Split(p.Version, ".")
+		if len(version) == 3 {
+			major, _ = strconv.Atoi(version[0])
+			minor, _ = strconv.Atoi(version[1])
+			build, _ = strconv.Atoi(version[2])
+		}
+	}
 	return plugin.PluginMetadata{
 		Name: "CPUEntitlementAdminPlugin",
 		Version: plugin.VersionType{
-			Major: 0,
-			Minor: 0,
-			Build: 1,
+			Major: major,
+			Minor: minor,
+			Build: build,
 		},
 		Commands: []plugin.Command{
 			{

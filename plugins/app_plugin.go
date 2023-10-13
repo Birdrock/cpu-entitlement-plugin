@@ -3,9 +3,11 @@ package plugins
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"regexp"
+	"strconv"
+	"strings"
 	"time"
 
 	"code.cloudfoundry.org/cli/cf/terminal"
@@ -23,10 +25,15 @@ import (
 
 const month time.Duration = 31 * 24 * time.Hour
 
-type CPUEntitlementPlugin struct{}
+type CPUEntitlementPlugin struct{ Version string }
 
 func NewCPUEntitlementPlugin() CPUEntitlementPlugin {
 	return CPUEntitlementPlugin{}
+}
+
+func (p CPUEntitlementPlugin) WithVersion(version string) CPUEntitlementPlugin {
+	p.Version = version
+	return p
 }
 
 func (p CPUEntitlementPlugin) Run(cli plugin.CliConnection, args []string) {
@@ -44,7 +51,7 @@ func (p CPUEntitlementPlugin) Run(cli plugin.CliConnection, args []string) {
 	}
 
 	logger := lager.NewLogger("cpu-entitlement")
-	outputSink := ioutil.Discard
+	outputSink := io.Discard
 	if opts.Debug {
 		outputSink = os.Stdout
 	}
@@ -110,12 +117,23 @@ func (p CPUEntitlementPlugin) Run(cli plugin.CliConnection, args []string) {
 }
 
 func (p CPUEntitlementPlugin) GetMetadata() plugin.PluginMetadata {
+	major := 0
+	minor := 0
+	build := 0
+	if p.Version != "" {
+		version := strings.Split(p.Version, ".")
+		if len(version) == 3 {
+			major, _ = strconv.Atoi(version[0])
+			minor, _ = strconv.Atoi(version[1])
+			build, _ = strconv.Atoi(version[2])
+		}
+	}
 	return plugin.PluginMetadata{
 		Name: "CPUEntitlementPlugin",
 		Version: plugin.VersionType{
-			Major: 0,
-			Minor: 0,
-			Build: 2,
+			Major: major,
+			Minor: minor,
+			Build: build,
 		},
 		Commands: []plugin.Command{
 			{

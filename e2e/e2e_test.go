@@ -2,7 +2,7 @@ package e2e_test
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"regexp"
 	"strconv"
@@ -21,24 +21,15 @@ import (
 
 var _ = Describe("cpu-plugins", func() {
 	var (
-		cfApi      string
-		cfUsername string
-		org        string
-		space      string
-		uid        string
+		org   string
+		space string
+		uid   string
 	)
-
-	getCFDetails := func() {
-		cfApi = GetEnv("CF_API")
-		cfUsername = GetEnv("CF_USERNAME")
-	}
 
 	cfLogin := func() {
 		Expect(Cmd("cf", "api", "--unset").Run()).To(gexec.Exit(0))
-		getCFDetails()
-		Expect(Cmd("cf", "api", cfApi, "--skip-ssl-validation").Run()).To(gexec.Exit(0))
-		cfPassword := GetEnv("CF_PASSWORD")
-		Expect(Cmd("cf", "auth", cfUsername, cfPassword).Run()).To(gexec.Exit(0))
+		Expect(Cmd("cf", "api", config.Api, "--skip-ssl-validation").Run()).To(gexec.Exit(0))
+		Expect(Cmd("cf", "auth", config.AdminUsername, config.AdminPassword).Run()).To(gexec.Exit(0))
 	}
 
 	createAndTargetOrgAndSpace := func() {
@@ -53,7 +44,7 @@ var _ = Describe("cpu-plugins", func() {
 	}
 
 	getAppUrl := func(appName string) string {
-		return strings.Replace(cfApi, "api.", appName+".", 1)
+		return strings.Replace(config.Api, "api.", appName+".", 1)
 	}
 
 	Describe("using --skip-ssl-validation", func() {
@@ -85,7 +76,7 @@ var _ = Describe("cpu-plugins", func() {
 
 			It("prints the application entitlement info", func() {
 				Eventually(Cmd("cf", "cpu-entitlement", appName).Run).Should(SatisfyAll(
-					gbytes.Say("Showing CPU usage against entitlement for app %s in org %s / space %s as %s...", appName, org, space, cfUsername),
+					gbytes.Say("Showing CPU usage against entitlement for app %s in org %s / space %s as %s...", appName, org, space, config.AdminUsername),
 					gbytes.Say("avg usage"),
 					gbytes.Say("#0"),
 				))
@@ -170,7 +161,7 @@ var _ = Describe("cpu-plugins", func() {
 
 				It("prints the application over entitlement", func() {
 					Eventually(Cmd("cf", "over-entitlement-instances").Run).Should(SatisfyAll(
-						gbytes.Say("Showing over-entitlement apps in org %s as %s...", org, cfUsername),
+						gbytes.Say("Showing over-entitlement apps in org %s as %s...", org, config.AdminUsername),
 						gbytes.Say("space *app"),
 						gbytes.Say("%s *%s", space, overEntitlementApp),
 					))
@@ -198,7 +189,7 @@ var _ = Describe("cpu-plugins", func() {
 
 					It("prints apps over entitlement from different spaces", func() {
 						Eventually(Cmd("cf", "over-entitlement-instances").Run).Should(SatisfyAll(
-							gbytes.Say("Showing over-entitlement apps in org %s as %s...", org, cfUsername),
+							gbytes.Say("Showing over-entitlement apps in org %s as %s...", org, config.AdminUsername),
 							gbytes.Say("space *app"),
 							gbytes.Say("%s *%s", anotherSpace, anotherApp),
 							gbytes.Say("%s *%s", space, overEntitlementApp),
@@ -276,10 +267,8 @@ var _ = Describe("cpu-plugins", func() {
 
 		cfLogin := func() {
 			Expect(Cmd("cf", "api", "--unset").WithEnv("SSL_CERT_FILE", certFile).Run()).To(gexec.Exit(0))
-			getCFDetails()
-			Expect(Cmd("cf", "api", cfApi).WithEnv("SSL_CERT_FILE", certFile).Run()).To(gexec.Exit(0))
-			cfPassword := GetEnv("CF_PASSWORD")
-			Expect(Cmd("cf", "auth", cfUsername, cfPassword).WithEnv("SSL_CERT_FILE", certFile).Run()).To(gexec.Exit(0))
+			Expect(Cmd("cf", "api", config.Api).WithEnv("SSL_CERT_FILE", certFile).Run()).To(gexec.Exit(0))
+			Expect(Cmd("cf", "auth", config.AdminUsername, config.AdminPassword).WithEnv("SSL_CERT_FILE", certFile).Run()).To(gexec.Exit(0))
 		}
 
 		createAndTargetOrgAndSpace := func() {
@@ -294,11 +283,10 @@ var _ = Describe("cpu-plugins", func() {
 		}
 
 		writeCertFile := func() string {
-			cert := GetEnv("ROUTER_CA_CERT")
-			tmpFile, err := ioutil.TempFile("", "cert")
+			tmpFile, err := os.CreateTemp("", "cert")
 			Expect(err).NotTo(HaveOccurred())
 			certFileName := tmpFile.Name()
-			Expect(ioutil.WriteFile(certFileName, []byte(cert), 0400)).To(Succeed())
+			Expect(os.WriteFile(certFileName, []byte(config.CaCert), 0400)).To(Succeed())
 			return certFileName
 		}
 

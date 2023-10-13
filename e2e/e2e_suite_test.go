@@ -1,14 +1,14 @@
 package e2e_test
 
 import (
+	"encoding/json"
+	"fmt"
 	"os"
 	"testing"
 	"time"
 
-	. "code.cloudfoundry.org/cpu-entitlement-plugin/test_utils"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/onsi/gomega/gexec"
 )
 
 func TestE2e(t *testing.T) {
@@ -18,13 +18,28 @@ func TestE2e(t *testing.T) {
 	RunSpecs(t, "E2e Suite")
 }
 
+var config Config
+
+type Config struct {
+	AdminPassword string `json:"admin_password"`
+	AdminUsername string `json:"admin_username"`
+	Api           string `json:"api"`
+	CaCert        string `json:"ca_cert"`
+}
+
 var _ = SynchronizedBeforeSuite(func() []byte {
-	Expect(Cmd("make", "install").WithDir("..").WithTimeout("60s").Run()).To(gexec.Exit(0))
+	configPath := GetEnv("CONFIG")
+	configFile, err := os.Open(configPath)
+	Expect(err).NotTo(HaveOccurred())
+
+	decoder := json.NewDecoder(configFile)
+	err = decoder.Decode(&config)
+	Expect(err).NotTo(HaveOccurred())
 	return []byte{}
 }, func(_ []byte) {})
 
 func GetEnv(varName string) string {
 	value := os.Getenv(varName)
-	ExpectWithOffset(1, value).NotTo(BeEmpty())
+	ExpectWithOffset(1, value).NotTo(BeEmpty(), fmt.Sprintf("Env %s was empty", varName))
 	return value
 }

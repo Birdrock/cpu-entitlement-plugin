@@ -5,6 +5,8 @@ import (
 	"code.cloudfoundry.org/cpu-entitlement-plugin/plugins"
 )
 
+var Version string
+
 func main() {
-	plugin.Start(plugins.NewOverEntitlementInstancesPlugin())
+	plugin.Start(plugins.NewOverEntitlementInstancesPlugin().WithVersion(Version))
 }

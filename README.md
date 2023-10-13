@@ -80,3 +80,40 @@ Operators may wish to over-commit or under-commit on the number of CPU shares
 available to applications for entitlement. This configuration and the outcomes
 are documented in the [garden BOSH
 release](https://github.com/cloudfoundry/garden-runc-release/blob/develop/docs/cpu-entitlement.md).
+
+### <a name="developer-workflow"></a> Developer Workflow
+
+- Clone [CI repository](https://github.com/cloudfoundry/wg-app-platform-runtime-ci) (next to where this code is cloned), and make sure latest
+is pulled by running `git pull`
+
+  ```bash
+  mkdir -p ~/workspace
+  cd ~/workspace
+  git clone https://github.com/cloudfoundry/wg-app-platform-runtime-ci.git
+  ```
+- [Git](https://git-scm.com/) - Distributed version control system
+- [Go](https://golang.org/doc/install#install) - The Go programming
+  language
+
+##### Test With Docker
+
+Running tests for this repo
+
+- `./scripts/create-docker-container.bash`: This will create a docker container with appropriate mounts.
+- `./scripts/test-in-docker-locally.bash`: Create docker container and run all tests and setup in a single script.
+  - `./scripts/test-in-docker-locally.bash <package> <sub-package>`: For running tests under a specific package: e.g. `./scripts/test-in-docker-locally.bash reporter`
+
+When inside docker container: 
+- `/repo/scripts/docker/build-binaries.bash`: This will build binaries required for running tests e.g. cpu-entitlement-plugin
+- `/repo/scripts/docker/test.bash`: This will run all unit-tests in this repo
+- `CONFIG=<PATH-TO-CONFIG.json> /repo/scripts/docker/test.bash <e2e,integration>`: This will run all test that are dependent on a CF.
+
+Here is an example for config.json:
+```json
+{
+  "api": "https://api.<REPLACE_ME>",
+  "admin_password": "<REPLACE_ME>",
+  "admin_username": "admin",
+  "ca_cert": "<REPLACE_ME> e.g. $(echo '' | openssl s_client -showcerts -servername api.${CF_SYSTEM_DOMAIN} -connect api.${CF_SYSTEM_DOMAIN}:443 -prexit 2>/dev/null | openssl x509 )"
+}
+```
