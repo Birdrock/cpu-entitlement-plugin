@@ -96,8 +96,8 @@ github.com/cloudfoundry/bosh-utils/system
 # github.com/cppforlife/go-patch v0.2.0
 ## explicit
 github.com/cppforlife/go-patch/patch
-# github.com/cyphar/filepath-securejoin v0.2.2
-## explicit
+# github.com/cyphar/filepath-securejoin v0.2.4
+## explicit; go 1.13
 # github.com/fatih/color v1.15.0
 ## explicit; go 1.17
 github.com/fatih/color
