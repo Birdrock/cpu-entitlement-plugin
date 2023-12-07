@@ -8,7 +8,7 @@ require (
 	code.cloudfoundry.org/cli v7.1.0+incompatible
 	code.cloudfoundry.org/go-log-cache v1.0.1-0.20230106184352-6dc0e9ab2e65
 	code.cloudfoundry.org/go-loggregator/v9 v9.0.8
-	code.cloudfoundry.org/lager/v3 v3.0.2
+	code.cloudfoundry.org/lager/v3 v3.0.3
 	code.cloudfoundry.org/test-log-emitter v0.0.0-20230301191511-86176b7ee269
 	github.com/fatih/color v1.16.0
 	github.com/google/uuid v1.4.0
