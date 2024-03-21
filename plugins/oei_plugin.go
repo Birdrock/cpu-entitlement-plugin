@@ -1,7 +1,7 @@
 package plugins
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -43,7 +43,7 @@ func (p CPUEntitlementAdminPlugin) Run(cli plugin.CliConnection, args []string) 
 	}
 
 	logger := lager.NewLogger("over-entitlement-instances")
-	outputSink := ioutil.Discard
+	outputSink := io.Discard
 	if opts.Debug {
 		outputSink = os.Stdout
 	}
