@@ -1,7 +1,6 @@
 package output_test
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/fatih/color"
@@ -185,9 +184,9 @@ var _ = Describe("Renderer", func() {
 			It("prints warnings about instances having been over entitlement", func() {
 				Expect(display.ShowMessageCallCount()).To(Equal(3))
 				firstWarning, _ := display.ShowMessageArgsForCall(1)
-				Expect(firstWarning).To(Equal(yellow(fmt.Sprintf("WARNING: Instance #234 was over entitlement from 2019-07-30 09:00:00 to 2019-07-31 12:00:00"))))
+				Expect(firstWarning).To(Equal(yellow("WARNING: Instance #234 was over entitlement from 2019-07-30 09:00:00 to 2019-07-31 12:00:00")))
 				secondWarning, _ := display.ShowMessageArgsForCall(2)
-				Expect(secondWarning).To(Equal(yellow(fmt.Sprintf("WARNING: Instance #345 was over entitlement from 2019-06-15 10:00:00 to 2019-06-21 05:00:00"))))
+				Expect(secondWarning).To(Equal(yellow("WARNING: Instance #345 was over entitlement from 2019-06-15 10:00:00 to 2019-06-21 05:00:00")))
 			})
 		})
 

@@ -3,7 +3,7 @@ package integration_test
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 
@@ -164,7 +164,7 @@ func emitMetric(endpoint string, metric interface{}) {
 	ExpectWithOffset(1, err).NotTo(HaveOccurred())
 	defer response.Body.Close()
 
-	responseBody, err := ioutil.ReadAll(response.Body)
+	responseBody, err := io.ReadAll(response.Body)
 	ExpectWithOffset(1, err).NotTo(HaveOccurred())
 	ExpectWithOffset(1, response.StatusCode).To(Equal(http.StatusOK), string(responseBody))
 }

@@ -29,16 +29,6 @@ type Metric struct {
 	Age         float64
 }
 
-func rangeQueryResult(series ...*logcache_v1.PromQL_Series) *logcache_v1.PromQL_RangeQueryResult {
-	return &logcache_v1.PromQL_RangeQueryResult{
-		Result: &logcache_v1.PromQL_RangeQueryResult_Matrix{
-			Matrix: &logcache_v1.PromQL_Matrix{
-				Series: series,
-			},
-		},
-	}
-}
-
 func queryResult(samples ...*logcache_v1.PromQL_Sample) *logcache_v1.PromQL_InstantQueryResult {
 	return &logcache_v1.PromQL_InstantQueryResult{
 		Result: &logcache_v1.PromQL_InstantQueryResult_Vector{
@@ -46,16 +36,6 @@ func queryResult(samples ...*logcache_v1.PromQL_Sample) *logcache_v1.PromQL_Inst
 				Samples: samples,
 			},
 		},
-	}
-}
-
-func series(instanceID, procInstanceID string, points ...*logcache_v1.PromQL_Point) *logcache_v1.PromQL_Series {
-	return &logcache_v1.PromQL_Series{
-		Metric: map[string]string{
-			"instance_id":         instanceID,
-			"process_instance_id": procInstanceID,
-		},
-		Points: points,
 	}
 }
 

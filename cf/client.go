@@ -110,7 +110,7 @@ func (c Client) GetApplication(logger lager.Logger, appName string) (Application
 	}
 
 	instances := map[int]Instance{}
-	for id, _ := range app.Instances {
+	for id := range app.Instances {
 		processInstanceID, hasProcessInstanceID := processInstanceIDs[id]
 		if !hasProcessInstanceID {
 			continue
