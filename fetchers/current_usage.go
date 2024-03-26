@@ -82,7 +82,7 @@ func (f CurrentUsageFetcher) FetchInstanceData(logger lager.Logger, appGUID stri
 			return map[int]interface{}{}, err
 		}
 
-		currentUsage[instanceID] = cumulativeData
+		currentUsage[instanceID] = CurrentInstanceData(cumulativeData)
 	}
 
 	return currentUsage, nil
