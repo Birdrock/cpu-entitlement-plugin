@@ -5,7 +5,7 @@ go 1.21.0
 toolchain go1.21.7
 
 require (
-	code.cloudfoundry.org/cli v7.1.0+incompatible
+	code.cloudfoundry.org/cli v0.0.0-20240402030811-38445c12f824
 	code.cloudfoundry.org/go-log-cache v1.0.1-0.20230106184352-6dc0e9ab2e65
 	code.cloudfoundry.org/go-loggregator/v9 v9.2.0
 	code.cloudfoundry.org/lager/v3 v3.0.3
