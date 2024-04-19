@@ -14,11 +14,11 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/onsi/ginkgo/v2 v2.17.1
-	github.com/onsi/gomega v1.32.0
+	github.com/onsi/gomega v1.33.0
 )
 
 require (
-	code.cloudfoundry.org/bytefmt v0.0.0-20240416163153-5a1ad77cdd44 // indirect
+	code.cloudfoundry.org/bytefmt v0.0.0-20240418163414-335139cff0b2 // indirect
 	code.cloudfoundry.org/cli-plugin-repo v0.0.0-20210527163012-bfc589866b5c // indirect
 	code.cloudfoundry.org/go-diodes v0.0.0-20240325171903-fa19631aa7ba // indirect
 	code.cloudfoundry.org/jsonry v1.1.4 // indirect
